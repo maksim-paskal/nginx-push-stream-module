@@ -1,0 +1,100 @@
+global:
+  imageRegistry: ""
+
+# for replicas > 1
+# use leaderElection.enabled=true
+replicas: 1
+
+image:
+  registry: docker.io
+  repository: paskalmaksim/nginx-push-stream-module
+  tag: e229e75
+  pullPolicy: IfNotPresent
+
+fullname: "{{ .Release.Name }}-{{ .Chart.Name }}"
+
+podLabels: {}
+
+metrics:
+  enabled: false
+  image:
+    registry: docker.io
+    repository: paskalmaksim/nginx-push-stream-module-exporter
+    tag: v0.0.3
+    pullPolicy: IfNotPresent
+  command:
+  - /app/nginx-push-stream-module-exporter
+  - -nginx.address=http://127.0.0.1:8080
+  - -nginx.stats-path=/channels-stats
+
+leaderElection:
+  enabled: false
+  createRbac: true
+  image:
+    registry: docker.io
+    repository: paskalmaksim/service-leader-election
+    tag: v0.0.1
+    pullPolicy: IfNotPresent
+
+securityContext:
+  runAsNonRoot: true
+  runAsUser: 30001
+  runAsGroup: 30001
+  privileged: false
+  readOnlyRootFilesystem: true
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+    - ALL
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 100Mi
+
+service:
+  enabled: true
+  nginxPort: 8080
+  annotations: {}
+
+ingress:
+  enabled: true
+  annotations: {}
+  tls: {}
+  host: nginx-push-stream-module.example.com
+
+config: |
+  server {
+    listen              8080 reuseport backlog=511;
+
+    server_tokens off;
+    client_max_body_size 8M;
+    charset utf-8;
+
+    location /channels-stats {
+      push_stream_channels_path	$arg_cid;
+      push_stream_channels_statistics;
+    }
+
+    location /publish {
+      push_stream_publisher;
+      push_stream_channels_path	$arg_cid;
+      push_stream_store_messages	on;
+    }
+
+    location ~ /comet/(.*) {
+      gzip  off;
+      push_stream_subscriber  long-polling;
+      push_stream_channels_path	$1;
+      push_stream_message_template  "{\"ids\":{\"~channel~\":~id~},\"data\":~text~},";
+      default_type  text/plain;
+    }
+
+    location ~ /chat/subscribe/(.*) {
+      gzip  off;
+      push_stream_subscriber  long-polling;
+      push_stream_channels_path	$1;
+      push_stream_message_template  "{\"ids\":{\"~channel~\":~id~},\"data\":~text~},";
+      default_type  text/plain;
+    }
+  }
