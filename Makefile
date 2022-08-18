@@ -12,7 +12,9 @@ deploy:
 	--install \
 	--create-namespace \
 	--namespace nginx-push-stream-module \
-	--set fullname=comet
+	--set fullname=comet \
+	--set replicas=3 \
+	--set leaderElection.enabled=true
 clean:
 	helm uninstall comet -n nginx-push-stream-module || true
 	kubectl delete ns nginx-push-stream-module || true
