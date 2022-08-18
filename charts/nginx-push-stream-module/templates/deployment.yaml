@@ -79,6 +79,9 @@ spec:
       - name: service-leader-election
         image: {{ printf "%s/%s:%s" (default .Values.leaderElection.image.registry .Values.global.imageRegistry) .Values.leaderElection.image.repository .Values.leaderElection.image.tag }}
         imagePullPolicy: {{ .Values.leaderElection.image.pullPolicy | quote }}
+        args:
+        - -lease-name={{ include "nginx-push-stream-module.fullname" . }}
+        - -service-name={{ include "nginx-push-stream-module.fullname" . }}
         securityContext:
 {{ toYaml .Values.securityContext | nindent 10 }}
         env:
@@ -90,10 +93,6 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
-        readinessProbe:
-          httpGet:
-            path: /ready
-            port: 28086
         livenessProbe:
           httpGet:
             path: /healthz

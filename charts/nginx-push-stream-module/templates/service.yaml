@@ -17,4 +17,7 @@ spec:
     protocol: TCP
   selector:
     app: nginx-push-stream-module
+{{ if .Values.leaderElection.enabled }}
+    service-leader-election: init
+{{ end }}
 {{ end }}
