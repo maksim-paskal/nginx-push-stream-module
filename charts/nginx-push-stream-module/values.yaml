@@ -30,6 +30,8 @@ metrics:
 leaderElection:
   enabled: false
   createRbac: true
+  leaseName: ""
+  serviceName: ""
   image:
     registry: docker.io
     repository: paskalmaksim/service-leader-election
