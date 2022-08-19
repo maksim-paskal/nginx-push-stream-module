@@ -80,8 +80,16 @@ spec:
         image: {{ printf "%s/%s:%s" (default .Values.leaderElection.image.registry .Values.global.imageRegistry) .Values.leaderElection.image.repository .Values.leaderElection.image.tag }}
         imagePullPolicy: {{ .Values.leaderElection.image.pullPolicy | quote }}
         args:
+        {{ if .Values.leaderElection.leaseName }}
+        - -lease-name={{ .Values.leaderElection.leaseName }}
+        {{ else }}
         - -lease-name={{ include "nginx-push-stream-module.fullname" . }}
+        {{ end }}
+        {{ if .Values.leaderElection.serviceName }}
+        - -service-name={{ .Values.leaderElection.serviceName }}
+        {{ else }}
         - -service-name={{ include "nginx-push-stream-module.fullname" . }}
+        {{ end }}
         securityContext:
 {{ toYaml .Values.securityContext | nindent 10 }}
         env:
