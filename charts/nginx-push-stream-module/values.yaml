@@ -8,12 +8,16 @@ replicas: 1
 image:
   registry: docker.io
   repository: paskalmaksim/nginx-push-stream-module
-  tag: e229e75
+  tag: 23a5c40
   pullPolicy: IfNotPresent
 
 fullname: "{{ .Release.Name }}-{{ .Chart.Name }}"
 
 podLabels: {}
+
+nodeSelector: {}
+tolerations: []
+affinity: {}
 
 metrics:
   enabled: false
