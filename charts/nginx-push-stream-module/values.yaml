@@ -39,7 +39,7 @@ leaderElection:
   image:
     registry: docker.io
     repository: paskalmaksim/service-leader-election
-    tag: v0.0.3
+    tag: v0.0.4
     pullPolicy: IfNotPresent
 
 securityContext:
