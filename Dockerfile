@@ -1,6 +1,6 @@
 FROM alpine:latest
 
-ENV NGINX_VERSION 1.23.1
+ENV NGINX_VERSION 1.23.4
 
 COPY . /usr/src/nginx/nginx-push-stream-module
 COPY misc/nginx.conf.minimal /tmp

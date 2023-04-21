@@ -3,7 +3,7 @@ tag=dev
 image=paskalmaksim/nginx-push-stream-module:$(tag)
 
 build:
-	docker build --pull --push . -t $(image)
+	docker buildx build --platform=linux/amd64,linux/arm64 --pull --push . -t $(image)
 run:
 	docker run -it -u 30000 --rm -p 8000:8000 $(image)
 deploy:
