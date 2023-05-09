@@ -103,4 +103,20 @@ config: |
       push_stream_message_template  "{\"ids\":{\"~channel~\":~id~},\"data\":~text~},";
       default_type  text/plain;
     }
+
+    location ~ /ws/(.*) {
+      # activate websocket mode for this location
+      push_stream_subscriber websocket;
+
+      # positional channel path
+      push_stream_channels_path                   $1;
+
+      # message template
+      push_stream_message_template                "{\"ids\":{\"~channel~\":~id~},\"data\":~text~},";
+
+      push_stream_websocket_allow_publish         off;
+
+      # ping frequency
+      push_stream_ping_message_interval           10s;
+    }
   }

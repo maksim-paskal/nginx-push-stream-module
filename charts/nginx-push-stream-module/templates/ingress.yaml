@@ -31,4 +31,11 @@ spec:
             name: {{ include "nginx-push-stream-module.fullname" . }}
             port:
               number: 80
+      - path: /ws
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ include "nginx-push-stream-module.fullname" . }}
+            port:
+              number: 80
 {{ end }}
