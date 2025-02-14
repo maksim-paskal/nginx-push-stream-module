@@ -36,7 +36,7 @@ GEM
       connection_pool (~> 2.2)
     nginx_test_helper (0.4.2)
       popen4
-    nio4r (2.7.3)
+    nio4r (2.7.4)
     nokogiri (1.16.4)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
@@ -45,7 +45,7 @@ GEM
       Platform (>= 0.4.0)
       open4 (>= 0.4.0)
     public_suffix (5.0.5)
-    puma (6.4.2)
+    puma (6.4.3)
       nio4r (~> 2.0)
     racc (1.7.3)
     rake (13.2.1)
