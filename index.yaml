@@ -2,6 +2,18 @@ apiVersion: v1
 entries:
   nginx-push-stream-module:
   - apiVersion: v2
+    created: "2025-02-27T08:22:03.150473608Z"
+    description: nginx with push stream module
+    digest: 94364c384bfa748ff88d4b6283a348f2675f7c182a51a85bdfaff55412d2b3b1
+    icon: https://helm.sh/img/helm.svg
+    maintainers:
+    - email: paskal.maksim@gmail.com
+      name: maksim-paskal
+    name: nginx-push-stream-module
+    urls:
+    - https://github.com/maksim-paskal/nginx-push-stream-module/releases/download/nginx-push-stream-module-0.1.0/nginx-push-stream-module-0.1.0.tgz
+    version: 0.1.0
+  - apiVersion: v2
     created: "2025-02-17T09:41:47.659694084Z"
     description: nginx with push stream module
     digest: c5dee733b9fbf8064caba2b857abf8aa4d8a43e3527bfd9080f997dd84cecb35
