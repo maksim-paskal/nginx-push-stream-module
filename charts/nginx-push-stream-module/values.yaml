@@ -31,8 +31,9 @@ metrics:
   - -nginx.address=http://127.0.0.1:8080
   - -nginx.stats-path=/channels-stats
   resources:
-    cpu: 10m
-    memory: 100Mi
+    requests:
+      cpu: 10m
+      memory: 100Mi
 
 leaderElection:
   enabled: false
@@ -45,8 +46,9 @@ leaderElection:
     tag: v0.0.4
     pullPolicy: IfNotPresent
   resources:
-    cpu: 10m
-    memory: 100Mi
+    requests:
+      cpu: 10m
+      memory: 100Mi
 
 securityContext:
   runAsNonRoot: true
