@@ -30,6 +30,9 @@ metrics:
   - /app/nginx-push-stream-module-exporter
   - -nginx.address=http://127.0.0.1:8080
   - -nginx.stats-path=/channels-stats
+  resources:
+    cpu: 10m
+    memory: 100Mi
 
 leaderElection:
   enabled: false
@@ -41,6 +44,9 @@ leaderElection:
     repository: paskalmaksim/service-leader-election
     tag: v0.0.4
     pullPolicy: IfNotPresent
+  resources:
+    cpu: 10m
+    memory: 100Mi
 
 securityContext:
   runAsNonRoot: true

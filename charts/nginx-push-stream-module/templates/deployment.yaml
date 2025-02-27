@@ -44,6 +44,7 @@ spec:
           name: {{ include "nginx-push-stream-module.fullname" . }}-config
       - name: tmp
         emptyDir:
+          sizeLimit: 100Mi
           medium: Memory
       containers:
       - name: nginx-push-stream-module
@@ -80,6 +81,8 @@ spec:
 {{ toYaml .Values.securityContext | nindent 10 }}
         command:
 {{ toYaml .Values.metrics.command | nindent 8 }}
+        resources:
+{{ toYaml .Values.metrics.resources | nindent 10 }}
         livenessProbe:
           httpGet:
             path: /metrics
@@ -104,6 +107,8 @@ spec:
         {{ end }}
         securityContext:
 {{ toYaml .Values.securityContext | nindent 10 }}
+        resources:
+{{ toYaml .Values.leaderElection.resources | nindent 10 }}
         env:
         - name: POD_NAME
           valueFrom:
