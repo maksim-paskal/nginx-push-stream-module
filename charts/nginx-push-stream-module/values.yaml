@@ -8,7 +8,7 @@ replicas: 1
 image:
   registry: docker.io
   repository: paskalmaksim/nginx-push-stream-module
-  tag: cf2bc86
+  tag: "0546900"
   pullPolicy: IfNotPresent
 
 fullname: "{{ .Release.Name }}-{{ .Chart.Name }}"
@@ -83,6 +83,7 @@ config: |
 
     server_tokens off;
     client_max_body_size 8M;
+    large_client_header_buffers 4 32k;
     charset utf-8;
 
     location /channels-stats {
